@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, ImageBackground , TextInput, TouchableHighlight} from 'react-native';
 import { connect } from 'react-redux';
-import { checkLogin } from '../actions/AuthActions'
+import { checkLogin, signInUser, changeEmail, changePassword } from '../actions/AuthActions'
 
 
 class Login extends Component {
@@ -21,18 +21,26 @@ class Login extends Component {
         this.props.navigation.navigate('SignUp')
     }
 
+    loginAction = () => {
+        this.props.signInUser(this.props.email, this.props.password);
+    }
+
     render() {
         return (
             <ImageBackground source={require('../assets/bg.jpg')} style={styles.container}>
                 <Text style={styles.logo}>Rede</Text>
 
                 <TextInput
+                    onChangeText={this.props.changeEmail}
+                    value={this.props.email}
                     style={styles.input}
                     placeholder="Digite seu e-mail : "
                     placeholderTextColor="#FFF"
                     underlineColorAndroid="transparent"
                     />
                 <TextInput
+                    onChangeText={this.props.changePassword}
+                    value={this.props.password}
                     style={styles.input}
                     placeholder="Digite sua senha : "
                     placeholderTextColor="#FFF"
@@ -40,7 +48,7 @@ class Login extends Component {
                     secureTextEntry={true}
                     />
                 <TouchableHighlight
-                     onPress={()=> {}}
+                     onPress={this.loginAction}
                      style={styles.actionButton}
                      underlayColor="#307EAF"
                      >
@@ -111,8 +119,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        status: state.auth.status
+        status: state.auth.status,
+        email:state.auth.email,
+        password:state.auth.password
     }
 }
-const LoginScreen = connect(mapStateToProps, { checkLogin })(Login)
+const LoginScreen = connect(mapStateToProps, { checkLogin, signInUser, changeEmail, changePassword })(Login)
 export default LoginScreen;

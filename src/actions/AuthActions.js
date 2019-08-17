@@ -49,6 +49,46 @@ export const registerNewUser = (name, email, pass) => {
     };
 }
 
+export const signInUser = ( email, pass) => {
+
+    return (dispatch) => {
+        let endpoint = 'http://localhost:8888/devstagram/users/login';
+        let jsonData = JSON.stringify({
+            email:email,
+            pass:pass
+        });
+
+        fetch(endpoint, {
+            method: 'POST',
+            body:jsonData
+        })
+        .then((r)=> r.json())
+        .then((json)=> {
+
+            if(json.error == '') {
+
+                alert("JWT: "+json.jwt);
+
+                AsyncStorage.setItem('jwt', json.jwt);
+
+                dispatch({
+                    type:'changeStatus',
+                    payload:{
+                        status:1
+                    }
+                })
+
+            } else {
+                alert(json.error);
+            }
+
+        })
+        .catch((error)=> {
+            alert("Erro de requisição");
+        });
+    };
+}
+
 export const changeName = (name)=> {
     return {
         type: 'changeName',
