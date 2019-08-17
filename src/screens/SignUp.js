@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, ImageBackground , TextInput, TouchableHighlight} from 'react-native';
 import { connect } from 'react-redux';
-import { checkLogin, changeName, changeEmail, changePassword } from '../actions/AuthActions'
+import { checkLogin, registerNewUser, changeName, changeEmail, changePassword } from '../actions/AuthActions'
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -19,6 +19,14 @@ class SignUp extends Component {
     signInAction = () => {
 
         this.props.navigation.goBack();
+    }
+
+    registerAction = () => {
+        this.props.registerNewUser(
+            this.props.name,
+            this.props.email,
+            this.props.password
+        );
     }
 
     render() {
@@ -52,7 +60,7 @@ class SignUp extends Component {
                     secureTextEntry={true}
                     />
                 <TouchableHighlight
-                     onPress={()=> {}}
+                     onPress={this.registerAction}
                      style={styles.actionButton}
                      underlayColor="#307EAF"
                      >
@@ -129,5 +137,5 @@ const mapStateToProps = (state) => {
         password:state.auth.password
     }
 }
-const SignUpScreen = connect(mapStateToProps, { checkLogin, changeName, changeEmail, changePassword })(SignUp)
+const SignUpScreen = connect(mapStateToProps, { checkLogin, registerNewUser, changeName, changeEmail, changePassword })(SignUp)
 export default SignUpScreen;
