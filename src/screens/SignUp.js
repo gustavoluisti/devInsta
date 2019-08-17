@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, ImageBackground , TextInput, TouchableHighlight} from 'react-native';
 import { connect } from 'react-redux';
-import { checkLogin } from '../actions/AuthActions'
+import { checkLogin, changeName, changeEmail, changePassword } from '../actions/AuthActions'
 
 class SignUp extends Component {
     static navigationOptions = {
@@ -26,6 +26,8 @@ class SignUp extends Component {
             <ImageBackground source={require('../assets/bg.jpg')} style={styles.container}>
                 <Text style={styles.logo}>Rede</Text>
                 <TextInput
+                    value={this.props.name}
+                    onChangeText={this.props.changeName}
                     style={styles.input}
                     placeholder="Digite seu nome : "
                     placeholderTextColor="#FFF"
@@ -33,12 +35,16 @@ class SignUp extends Component {
                     />
 
                 <TextInput
+                    value={this.props.email}
+                    onChangeText={this.props.changeEmail}
                     style={styles.input}
                     placeholder="Digite seu e-mail : "
                     placeholderTextColor="#FFF"
                     underlineColorAndroid="transparent"
                     />
                 <TextInput
+                    value={this.props.password}
+                    onChangeText={this.props.changePassword}
                     style={styles.input}
                     placeholder="Digite sua senha : "
                     placeholderTextColor="#FFF"
@@ -117,8 +123,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        status: state.auth.status
+        status: state.auth.status,
+        name:state.auth.name,
+        email:state.auth.email,
+        password:state.auth.password
     }
 }
-const SignUpScreen = connect(mapStateToProps, { checkLogin })(SignUp)
+const SignUpScreen = connect(mapStateToProps, { checkLogin, changeName, changeEmail, changePassword })(SignUp)
 export default SignUpScreen;
