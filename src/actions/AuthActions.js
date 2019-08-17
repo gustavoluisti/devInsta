@@ -1,12 +1,36 @@
 import { AsyncStorage } from 'react-native'
 
 export const checkLogin = () => {
-    //Temporariamente
-    return {
-        type:'changeStatus',
-        payload: {
-            status:2
-        }
+    
+    return (dispatch) => {
+
+        AsyncStorage.getItem('jwt')
+            .then((data) => {
+                if(data != null && data != '') {
+
+                    dispatch({
+                        type:'changeStatus',
+                        payload:{
+                            status:1
+                        }
+                    })
+                } else {
+                    dispatch({
+                        type:'changeStatus',
+                        payload:{
+                            status:2
+                        }
+                    })
+                }
+            })
+            .catch((error)=> {
+                dispatch({
+                    type:'changeStatus',
+                    payload:{
+                        status:2
+                    }
+                })
+            })
     }
 };
 
@@ -67,7 +91,7 @@ export const signInUser = ( email, pass) => {
 
             if(json.error == '') {
 
-                alert("JWT: "+json.jwt);
+                // alert("JWT: "+json.jwt);
 
                 AsyncStorage.setItem('jwt', json.jwt);
 

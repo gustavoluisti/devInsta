@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, ImageBackground , TextInput, TouchableHighlight} from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationActions, StackActions } from 'react-navigation';
 import { checkLogin, signInUser, changeEmail, changePassword } from '../actions/AuthActions'
 
 
@@ -15,6 +16,21 @@ class Login extends Component {
         this.state = {};
 
         this.signUpAction = this.signUpAction.bind(this);
+    }
+
+    componentDidUpdate() {
+        this.verifyStatus();
+    }
+
+    verifyStatus = () => {
+        if(this.props.status === 1) {
+            this.props.navigation.dispatch(StackActions.reset({
+                index:0,
+                actions:[
+                    NavigationActions.navigate({routeName:'Home'})
+                ]
+            }))
+        }
     }
 
     signUpAction = () => {
