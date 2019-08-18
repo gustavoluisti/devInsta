@@ -14,7 +14,7 @@ class Preload extends Component {
         super(props)
         this.state = {};
 
-        this.verifyStatus = this.verifyStatus.bind(this)
+        this.verifyStatus = this.verifyStatus.bind(this);
     }
 
     render() {

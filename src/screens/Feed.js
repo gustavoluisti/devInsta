@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { checkLogin } from '../actions/AuthActions'
 import { getFeed } from '../actions/FeedActions'
+import { NavigationActions, StackActions } from 'react-navigation';
 
 class Feed extends Component {
     static navigationOptions = {
@@ -24,11 +25,13 @@ class Feed extends Component {
     }
 
     verifyStatus = () => {
-        if(this.props.status === 1) {
+        if(this.props.status === 2) {
+
             this.props.navigation.dispatch(StackActions.reset({
                 index:0,
+                key:null,
                 actions:[
-                    NavigationActions.navigate({routeName:'Tabs'})
+                    NavigationActions.navigate({routeName:'Login'})
                 ]
             }))
         }

@@ -1,5 +1,8 @@
 
-const devUrl = 'https://alunos.b7web.com.br/apis/devstagram/';
+// const devUrl = 'https://alunos.b7web.com.br/apis/devstagram/';
+const devUrl = 'http://localhost:8888/devstagram/';
+
+
 
 const DevApi = {
 

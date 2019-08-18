@@ -16,10 +16,10 @@ export const getFeed = () => {
 
                             if(json.logged === true) {
 
-                                
+
 
                             } else {
-                                dispatch(logout());
+                                // dispatch(logout());
                             }
 
                         },
