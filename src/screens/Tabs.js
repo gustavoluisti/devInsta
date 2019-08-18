@@ -1,7 +1,7 @@
 import React, {Component } from 'react'
 import { createBottomTabNavigator } from 'react-navigation';
 import { Image } from 'react-native'
-import Home from './Home';
+import Home from './Feed';
 import Explore from './Explore';
 import DevCamera from './DevCamera';
 import Profile from './Profile';

@@ -1,39 +1,27 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import { checkLogin } from '../actions/AuthActions'
+import React,{ Component } from 'react';
+import { createStackNavigator } from 'react-navigation';
 
-class Home extends Component {
-    static navigationOption = {
-        title: 'Feed',
-    }
+import Feed from './Feed';
+import Profile from './Profile';
 
-    constructor(props) {
-        super(props)
-        this.state = {};
+const Home = createStackNavigator({
+    Feed:{
+        screen:Feed
+    },
+    Profile:{
+        screen:Profile
     }
-
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>Feed de Fotos</Text>
-            </View>
-        )
+}, {
+    navigationOptions:{
+        header:true,
+        headerStyle:{
+            backgroundColor:'#4da2d8',
+        },
+        headerTitleStyle:{
+            color:'#FFF',
+            flex:1,
+            textAlign: 'center',
+        }
     }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-})
-
-const mapStateToProps = (state) => {
-    return {
-        status: state.auth.status
-    }
-}
-const HomeScreen = connect(mapStateToProps, { checkLogin })(Home)
-export default HomeScreen;
+});
+export default Home;
