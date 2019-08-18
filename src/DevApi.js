@@ -1,4 +1,5 @@
-const devUrl = 'http://localhost:8888/devstagram/';
+
+const devUrl = 'https://alunos.b7web.com.br/apis/devstagram/';
 
 const DevApi = {
 
@@ -29,6 +30,19 @@ const DevApi = {
         let endpoint = devUrl+urlSuffix;
         let jsonData = JSON.stringify(urlData);
 
+        if(urlMethod == 'GET') {
+            jsonData = null;
+
+            //{"nome": "Gustavo", "idade":"99"}
+            //nome=Gustavo&idade=99
+            let query = '';
+            for(let i in urlData) {
+                query += encodeURIComponent(i)+'='+encodeURIComponent(urlData)+'&';
+            }
+
+            endpoint += '?'+query;
+        }
+        // alert(endpoint)
         fetch(endpoint, {
             method: urlMethod,
             body:jsonData

@@ -43,6 +43,17 @@ export const checkLogin = () => {
     }
 };
 
+export const logout = () => {
+    AsyncStorage.setItem('jwt', '');
+    
+    return {
+        type:'changeStatus',
+        payload:{
+            status:2
+        }
+    }
+};
+
 export const registerNewUser = (name, email, pass) => {
 
     return(dispatch) => {

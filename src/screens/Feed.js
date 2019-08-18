@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { checkLogin } from '../actions/AuthActions'
 import { getFeed } from '../actions/FeedActions'
@@ -15,15 +15,31 @@ class Feed extends Component {
         this.state = {};
     }
 
+    componentDidMount() {
+        this.props.getFeed();
+    }
+
+    componentDidUpdate() {
+        this.verifyStatus();
+    }
+
+    verifyStatus = () => {
+        if(this.props.status === 1) {
+            this.props.navigation.dispatch(StackActions.reset({
+                index:0,
+                actions:[
+                    NavigationActions.navigate({routeName:'Tabs'})
+                ]
+            }))
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Text>Feed de Fotos</Text>
                 <Text>{this.props.feed.length}</Text>
-                
-                <Button title="Aperte aqui" onPress={()=> {
-                    this.props.getFeed();
-                }} />
+
             </View>
         )
     }
