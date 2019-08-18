@@ -1,4 +1,4 @@
-# Project Title
+# App destinado a publicação de imagens
 
 One Paragraph of project description goes here
 
