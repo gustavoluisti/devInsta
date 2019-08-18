@@ -19,6 +19,8 @@ class Feed extends Component {
         return (
             <View style={styles.container}>
                 <Text>Feed de Fotos</Text>
+                <Text>{this.props.feed.length}</Text>
+                
                 <Button title="Aperte aqui" onPress={()=> {
                     this.props.getFeed();
                 }} />

@@ -1,5 +1,5 @@
 const initialState = {
-    feed:[],
+    feed:[{nome: 'Gustavo'}],
     offset:0
 }
 
