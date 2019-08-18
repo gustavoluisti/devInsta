@@ -39,7 +39,7 @@ class SignUp extends Component {
             this.props.navigation.dispatch(StackActions.reset({
                 index:0,
                 actions:[
-                    NavigationActions.navigate({routeName:'Home'})
+                    NavigationActions.navigate({routeName:'Tabs'})
                 ]
             }))
         }
