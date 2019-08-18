@@ -28,6 +28,10 @@ const AppNavigator = createStackNavigator({
   SignUp:{
     screen:SignUp
   }
+},{
+  navigationOptions:{
+    header:null
+  }
 });
 
 const AppContainer = createAppContainer(AppNavigator);
