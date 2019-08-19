@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { checkLogin } from '../actions/AuthActions'
 import { getFeed } from '../actions/FeedActions'
 import { NavigationActions, StackActions } from 'react-navigation';
 import FeedItemFake from '../components/feed/FeedItemFake'
+import FeedItem from '../components/feed/FeedItem'
 
 class Feed extends Component {
     static navigationOptions = {
         title: 'Feed',
-        
+
     }
-    
+
 
     constructor(props) {
         super(props)
-        this.state = {};
+        this.state = {
+            feedFake: [{"id":"3","id_user":"3","url":"https:\/\/alunos.b7web.com.br\/apis\/devstagram\/media\/photos\/i3.jpg","date_posted":"2018-01-01 14:30:00","name":"testador","avatar":"https:\/\/alunos.b7web.com.br\/apis\/devstagram\/media\/avatar\/default.jpg","like_count":"3","comments":[{"id":"1","id_user":"1","id_photo":"3","date_comment":"2018-01-01 18:00:00","txt":"Show de bola!","name":"Bonieky"}],"is_liked":true},{"id":"2","id_user":"2","url":"https:\/\/alunos.b7web.com.br\/apis\/devstagram\/media\/photos\/i2.jpg","date_posted":"2018-01-01 13:45:00","name":"Testador","avatar":"https:\/\/alunos.b7web.com.br\/apis\/devstagram\/media\/avatar\/default.jpg","like_count":"1","comments":[],"is_liked":true},{"id":"1","id_user":"2","url":"https:\/\/alunos.b7web.com.br\/apis\/devstagram\/media\/photos\/i1.jpg","date_posted":"2018-01-01 12:30:00","name":"Testador","avatar":"https:\/\/alunos.b7web.com.br\/apis\/devstagram\/media\/avatar\/default.jpg","like_count":"3","comments":[],"is_liked":true}]
+        };
     }
 
     componentDidMount() {
-        this.props.getFeed();
+        // this.props.getFeed();
     }
 
     componentDidUpdate() {
@@ -27,17 +30,27 @@ class Feed extends Component {
     }
 
     verifyStatus = () => {
-        if(this.props.status === 2) {
+        if (this.props.status === 2) {
 
             this.props.navigation.dispatch(StackActions.reset({
-                index:0,
-                key:null,
-                actions:[
-                    NavigationActions.navigate({routeName:'Login'})
+                index: 0,
+                key: null,
+                actions: [
+                    NavigationActions.navigate({ routeName: 'Login' })
                 ]
             }))
         }
     }
+
+    // {(this.props.feedLoading == false && this.props.feed.length == 0) &&
+    //     <View style={styles.feedZero}>
+    //         <Text style={styles.feedZeroTitle}>Não há itens a serem mostrados :(</Text>
+    //     </View>
+    // }
+
+    // {(this.props.feedLoading == false && this.props.feed.length > 0) &&
+                    
+    // }
 
     render() {
         return (
@@ -48,9 +61,15 @@ class Feed extends Component {
                         <FeedItemFake />
                     </View>
                 }
+
+                <FlatList
+                    data={this.state.feedFake}
+                    renderItem={({ item }) => <FeedItem data={item} nav={this.props.navigation} />}
+                    keyExtractor={(item) => item.id}
+                    style={styles.feed}
+                />
+
                 
-                <Text>Feed de Fotos</Text>
-                <Text>{this.props.feed.length}</Text>
             </View>
         )
     }
@@ -59,15 +78,28 @@ class Feed extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop:30,
+        marginTop: 30,
+    },
+    feed: {
+        flex: 1,
+    },
+    feedZero: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    feedZeroTitle: {
+        color: '#CCC',
+        fontSize: 20,
+        fontWeight: 'bold',
     }
 })
 
 const mapStateToProps = (state) => {
     return {
         status: state.auth.status,
-        feed:state.feed.feed,
-        feedLoading:state.feed.feedLoading
+        feed: state.feed.feed,
+        feedLoading: state.feed.feedLoading
     }
 }
 const FeedScreen = connect(mapStateToProps, { checkLogin, getFeed })(Feed)

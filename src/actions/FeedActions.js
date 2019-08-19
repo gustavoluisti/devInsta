@@ -35,6 +35,7 @@ export const getFeed = () => {
 									type:'incrementFeed',
 									payload:{
 										feed:json.data
+										// feed:[]
 									}
 								});
 
