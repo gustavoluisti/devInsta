@@ -23,6 +23,21 @@ export default class FeedItem extends Component {
                     <View style={styles.likeArea}>
                         <Text>{this.props.data.like_count}</Text>
                     </View>
+                    <View style={styles.commentArea}>
+                        <Text>{this.props.data.comments.length}</Text>
+                    </View>
+                </View>
+                {this.props.data.comments.length > 0 &&
+                    <View style={styles.commentContainer}>
+                        {this.props.data.comments.map((citem)=> {
+                            return (
+                                <Text>{citem.name}: {citem.txt}</Text>
+                            )
+                        })}
+                    </View>
+                }
+                <View style={styles.feedLineEnd}>
+
                 </View>
             </View>
         )
@@ -73,5 +88,23 @@ const styles = StyleSheet.create({
     },
     feedFooter:{
         height:60,
+        flexDirection: 'row'
+    },
+    likeArea:{
+        width:60,
+        height:60,
+        backgroundColor: '#CCCCCC',
+    },
+    commentArea:{
+        width:60,
+        height:60,
+        backgroundColor: '#CCCCCC',
+    },
+    commentContainer:{
+        padding:10,
+    },
+    feedLineEnd:{
+        height:1,
+        backgroundColor: '#CCC',
     }
 });
