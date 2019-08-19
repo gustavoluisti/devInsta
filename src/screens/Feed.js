@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import { checkLogin } from '../actions/AuthActions'
 import { getFeed } from '../actions/FeedActions'
 import { NavigationActions, StackActions } from 'react-navigation';
+import FeedItemFake from '../components/feed/FeedItemFake'
 
 class Feed extends Component {
     static navigationOptions = {
         title: 'Feed',
-        header:true
+        
     }
+    
 
     constructor(props) {
         super(props)
@@ -40,9 +42,15 @@ class Feed extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {this.props.feedLoading == true &&
+                    <View>
+                        <FeedItemFake />
+                        <FeedItemFake />
+                    </View>
+                }
+                
                 <Text>Feed de Fotos</Text>
                 <Text>{this.props.feed.length}</Text>
-
             </View>
         )
     }
@@ -51,15 +59,15 @@ class Feed extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        marginTop:30,
     }
 })
 
 const mapStateToProps = (state) => {
     return {
         status: state.auth.status,
-        feed:state.feed.feed
+        feed:state.feed.feed,
+        feedLoading:state.feed.feedLoading
     }
 }
 const FeedScreen = connect(mapStateToProps, { checkLogin, getFeed })(Feed)

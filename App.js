@@ -30,7 +30,7 @@ const AppNavigator = createStackNavigator({
   }
 },{
   navigationOptions:{
-    header:true
+    header:null
   }
 });
 
