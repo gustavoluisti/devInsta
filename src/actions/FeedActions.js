@@ -21,6 +21,7 @@ export const getFeed = () => {
 						data:{jwt:data},
 						success:(json)=>{
 
+
 							if(json.logged === true) {
 
 								dispatch({
