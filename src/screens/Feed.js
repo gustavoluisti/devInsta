@@ -20,22 +20,22 @@ class Feed extends Component {
         this.props.getFeed();
     }
 
-    componentDidUpdate() {
-        this.verifyStatus();
-    }
+    // componentDidUpdate() {
+    //     this.verifyStatus();
+    // }
 
-    verifyStatus = () => {
-        if(this.props.status === 2) {
+    // verifyStatus = () => {
+    //     if(this.props.status === 2) {
 
-            this.props.navigation.dispatch(StackActions.reset({
-                index:0,
-                key:null,
-                actions:[
-                    NavigationActions.navigate({routeName:'Login'})
-                ]
-            }))
-        }
-    }
+    //         this.props.navigation.dispatch(StackActions.reset({
+    //             index:0,
+    //             key:null,
+    //             actions:[
+    //                 NavigationActions.navigate({routeName:'Login'})
+    //             ]
+    //         }))
+    //     }
+    // }
 
     render() {
         return (

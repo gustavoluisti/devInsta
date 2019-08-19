@@ -1,5 +1,5 @@
 const initialState = {
-    feed:[{nome: 'Gustavo'}],
+    feed:[],
     offset:0
 }
 
@@ -9,6 +9,9 @@ const FeedReducer = (state = initialState, action) => {
     // if(action.type === 'changeName') {
     //     return { ...state, name:action.payload.name}
     // }
+    if(action.type == 'incrementFeed') {
+        return {...state, feed:state.feed.concat(action.payload.feed)};
+    }
 
     return state;
 }

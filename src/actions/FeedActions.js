@@ -1,44 +1,69 @@
 import { AsyncStorage } from 'react-native';
-import DevApi from '../DevApi';
-import { logout } from './AuthActions'
+import DevstagramAPI from '../DevstagramAPI';
+import { logout } from  './AuthActions';
 
 export const getFeed = () => {
-    return(dispatch) => {
+	return(dispatch) => {
 
-        AsyncStorage.getItem('jwt')
-            .then((data)=> {
-                if(data != null && data != '') {
-                    DevApi.req({
-                        endpoint: 'users/feed',
-                        method: 'GET',
-                        data:{jwt:data},
-                        success:(json)=> {
+		dispatch({
+			type:'changeFeedLoadingStatus',
+			payload:{
+				status: true
+			}
+		});
 
-                            if(json.logged === true) {
+		AsyncStorage.getItem('jwt')
+			.then((data) => {
+				if(data != null && data != '') {
+					DevstagramAPI.req({
+						endpoint:'users/feed',
+						method:'GET',
+						data:{jwt:data},
+						success:(json)=>{
+
+							if(json.logged === true) {
+
+								dispatch({
+									type:'changeFeedLoadingStatus',
+									payload:{
+										status: false
+									}
+								});								
+
+								dispatch({
+									type:'incrementFeed',
+									payload:{
+										feed:json.data
+									}
+								});
 
 
+							} else {
+								dispatch(logout());
+							}
 
-                            } else {
-                                // dispatch(logout());
-                            }
-
-                        },
-                        error:(error) => {
-                            alert(error); 
-                        }
-                    });
-                } else {
-                    dispatch(logout());  
-                }
-            })
-            .catch(()=>{
-                dispatch(logout());
-            })
-        
-        
-
-    };
+						},
+						error:(error)=>{
+							alert("Erro na requisição");
+							dispatch({
+								type:'changeFeedLoadingStatus',
+								payload:{
+									status: true
+								}
+							});								
+						}
+					});
+				} else {
+					dispatch(logout());
+				}
+			})
+			.catch(()=>{
+				dispacth({
+					type:'changeStatus',
+					payload:{
+						status:2
+					}
+				});
+			});
+	};
 };
-
-//suporte@b7web.com.br
-//123456
