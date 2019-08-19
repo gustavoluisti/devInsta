@@ -19,6 +19,11 @@ export default class FeedItem extends Component {
                 <View style={styles.feedBody}>
                     <Image source={{uri:this.props.data.url}} style={styles.feedImage} />
                 </View>
+                <View style={styles.feedFooter}>
+                    <View style={styles.likeArea}>
+                        <Text>{this.props.data.like_count}</Text>
+                    </View>
+                </View>
             </View>
         )
     }
@@ -65,5 +70,8 @@ const styles = StyleSheet.create({
     feedImage:{
         width:'100%',
         height:300,
+    },
+    feedFooter:{
+        height:60,
     }
 });
