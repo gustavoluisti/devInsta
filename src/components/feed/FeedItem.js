@@ -2,6 +2,22 @@ import React, { Component } from 'react';
 import {View, StyleSheet, Text, Image } from 'react-native';
 
 export default class FeedItem extends Component {
+
+    constructor(props) {
+        super(props);
+
+        let rawDate = this.props.data.date_posted.split(' ');
+        let date = rawDate[0].split('-');
+        date = date[2]+'/'+date[1]+'/'+date[0];
+
+        let time = rawDate[1].split(':');
+        time = time[0]+':'+time[1];
+
+        this.state = {
+            dateFormated:date+''+time
+        }
+    }
+
     render() {
         return (
             <View style={styles.feedContainer}>
@@ -13,7 +29,8 @@ export default class FeedItem extends Component {
                         <Text>{this.props.data.name}</Text>
                     </View>
                     <View style={styles.dateArea}>
-                        <View style={styles.postDate}></View>
+                        <Image source={require('../../assets/clock.png')} style={styles.clockIcon} />
+                        <Text style={styles.postDate}>{this.state.dateFormated}</Text>
                     </View>
                 </View>
                 <View style={styles.feedBody}>
@@ -70,17 +87,21 @@ const styles = StyleSheet.create({
     },
     dateArea:{
         flex:1,
-        alignItems: 'flex-end',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    clockIcon:{
+        width:15,
+        height:15,
+        marginRight:5,
     },
     postDate:{
-        width:80,
-        height:15,
-        backgroundColor: '#00FF00',
+        height:20,
         marginRight:10,
     },
     feedBody:{
         flex: 1,
-        backgroundColor: '#00FF00',
     },
     feedImage:{
         width:'100%',
