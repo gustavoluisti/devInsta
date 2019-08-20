@@ -20,7 +20,23 @@ export default class FeedItem extends Component {
     }
 
     userClick = () => {
-        alert("clicou no usuario")
+        alert("clicou no usuario: "+this.props.data.id_user)
+    }
+
+    commentUserClick = (id) => {
+        alert("clicou no usuario: "+id)
+    }
+
+    photoClick = () => {
+        alert("clicou na foto: "+this.props.data.id)
+    }
+
+    directLikeClick = () => {
+        alert("Deu o like")
+    }
+
+    toggleCommentArea = () => {
+        alert("Clicou em comentar")
     }
 
     render() {
@@ -44,23 +60,35 @@ export default class FeedItem extends Component {
                     </View>
                 </View>
                 <View style={styles.feedBody}>
-                    <Image resizeMode="cover" source={{uri:this.props.data.url}} style={{width:this.state.screenWidth, height:this.state.screenWidth}} />
+                    <TouchableHighlight activeOpacity={1} underlayColor={null} onPress={this.photoClick}>
+                        <Image resizeMode="cover" source={{uri:this.props.data.url}} style={{width:this.state.screenWidth, height:this.state.screenWidth}} />
+                    </TouchableHighlight>
                 </View>
                 <View style={styles.feedFooter}>
-                    <View style={styles.likeArea}>
+                <TouchableHighlight underlayColor={null}  onPress={this.directLikeClick} >
+                    <View style={styles.likeArea} >
                         <Image source={require('../../assets/like_off.png')} style={styles.footerIcon} />
                         <Text style={styles.likeText}>{this.props.data.like_count}</Text>
                     </View>
+                </TouchableHighlight>
+                <TouchableHighlight underlayColor={null} onPress={this.toggleCommentArea}>
                     <View style={styles.commentArea}>
                         <Image source={require('../../assets/comments.png')} style={styles.footerIcon} />
                         <Text style={styles.likeText}>{this.props.data.comments.length}</Text>
                     </View>
+                </TouchableHighlight>
                 </View>
                 {this.props.data.comments.length > 0 &&
                     <View style={styles.commentContainer}>
                         {this.props.data.comments.map((citem)=> {
                             return (
-                                <Text>{citem.name}: {citem.txt}</Text>
+                                    <View style={styles.commentItem}>
+                                        <TouchableHighlight underlayColor={null} 
+                                        onPress={() => { this.commentUserClick(citem.id_user)}} style={styles.commentItemUser}>
+                                            <Text>{citem.name}: </Text>
+                                        </TouchableHighlight>
+                                        <Text>{citem.txt}</Text>
+                                    </View> 
                             )
                         })}
                     </View>
@@ -150,8 +178,14 @@ const styles = StyleSheet.create({
     commentContainer:{
         padding:10,
     },
+    commentItem:{
+        flexDirection: 'row',
+    },
     feedLineEnd:{
         height:1,
         backgroundColor: '#CCC',
+    },
+    commentItemUser:{
+        marginRight:5,
     }
 });
