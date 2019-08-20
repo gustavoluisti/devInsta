@@ -9,9 +9,8 @@ import FeedItem from '../components/feed/FeedItem'
 
 class Feed extends Component {
     static navigationOptions = {
-        title: 'Feed',
-
-    }
+        title: 'Home',
+      };
 
 
     constructor(props) {
@@ -78,7 +77,6 @@ class Feed extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 30,
     },
     feed: {
         flex: 1,

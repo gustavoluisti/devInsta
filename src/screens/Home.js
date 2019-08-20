@@ -17,7 +17,7 @@ const Home = createStackNavigator({
 			backgroundColor: '#4da2d8'
 		},
 		headerTitleStyle:{
-			color:'#FFFFFF',
+			color:'#000',
 			flex: 1,
 			textAlign:'center'
 		}

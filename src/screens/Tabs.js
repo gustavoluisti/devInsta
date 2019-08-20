@@ -77,11 +77,14 @@ const Tabs = createBottomTabNavigator({
     }
 },{
     navigationOptions:{
-        header:null
+       headerStyle:{
+        backgroundColor: '#6B52AE',
+        color:  '#FFF'
+       }
     }, tabBarOptions:{
         showLabel:false,
-        activeBackgroundColor:'#333333',
-        inactiveBackgroundColor:'#CCCCCC',
+        activeBackgroundColor:'#6B52AE',
+        inactiveBackgroundColor:'#FFF',
     }
 });
 

@@ -20,11 +20,18 @@ export default class FeedItem extends Component {
     }
 
     userClick = () => {
-        alert("clicou no usuario: "+this.props.data.id_user)
+        this.props.nav.navigate('Profile',{
+            name:this.props.data.name,
+            id:this.props.data.user_id,
+        });
+        // alert("clicou no usuario: "+this.props.data.id_user)
     }
 
-    commentUserClick = (id) => {
-        alert("clicou no usuario: "+id)
+    commentUserClick = (name, id) => {
+        this.props.nav.navigate('Profile', {
+            name:name,
+            id:id
+        });
     }
 
     photoClick = () => {
@@ -84,7 +91,8 @@ export default class FeedItem extends Component {
                             return (
                                     <View style={styles.commentItem}>
                                         <TouchableHighlight underlayColor={null} 
-                                        onPress={() => { this.commentUserClick(citem.id_user)}} style={styles.commentItemUser}>
+                                        onPress={() => 
+                                        { this.commentUserClick(citem.id_user, citem.name)}} style={styles.commentItemUser}>
                                             <Text>{citem.name}: </Text>
                                         </TouchableHighlight>
                                         <Text>{citem.txt}</Text>

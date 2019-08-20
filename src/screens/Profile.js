@@ -4,19 +4,23 @@ import { connect } from 'react-redux';
 import { checkLogin } from '../actions/AuthActions'
 
 class Profile extends Component {
-    static navigationOptions = {
-        title: 'Perfil',
+    static navigationOptions = ({navigation}) => {
+        return {
+            title:navigation.getParam('name'),
+        }
     }
 
     constructor(props) {
         super(props)
-        this.state = {};
+        this.state = {
+            name:this.props.navigation.getParam('name')
+        };
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text>Perfil</Text>
+                <Text>Nome: {this.state.name}</Text>
             </View>
         )
     }
