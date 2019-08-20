@@ -76,8 +76,23 @@ export const likePhoto = (id, is_liked) => {
 		let method = '';
 		if(is_liked) {
 			method = 'DELETE';
+
+			dispatch({
+				type: 'removeLike',
+				payload:{
+					id:id
+				}
+			})
+			
 		} else {
 			method = 'POST';
+			dispacth({
+				type:'addLike',
+				payload:{
+					id:id
+				}
+			})
+
 		}
 
 		alert("Requisicao: "+method+" ao id "+id)
