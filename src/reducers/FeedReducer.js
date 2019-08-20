@@ -17,7 +17,7 @@ const FeedReducer = (state = initialState, action) => {
         for(let i in feed) {
             if(feed[i].id == action.payload.id) {
                 feed[i].like_count++;
-                feed[i].is_like = true;
+                feed[i].is_liked = true;
             }
         }
         return { ...state, feed:feed}
@@ -29,7 +29,7 @@ const FeedReducer = (state = initialState, action) => {
         for(let i in feed) {
             if(feed[i].id == action.payload.id) {
                 feed[i].like_count--;
-                feed[i].is_like = false;
+                feed[i].is_liked = false;
             }
         }
         return { ...state, feed:feed}

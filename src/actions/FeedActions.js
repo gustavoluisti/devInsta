@@ -71,7 +71,7 @@ export const getFeed = () => {
 };
 
 export const likePhoto = (id, is_liked) => {
-	return (dispacth) => {
+	return (dispatch) => {
 
 		let method = '';
 		if(is_liked) {
@@ -86,7 +86,7 @@ export const likePhoto = (id, is_liked) => {
 			
 		} else {
 			method = 'POST';
-			dispacth({
+			dispatch({
 				type:'addLike',
 				payload:{
 					id:id
