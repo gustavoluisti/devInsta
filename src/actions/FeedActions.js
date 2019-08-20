@@ -71,7 +71,8 @@ export const getFeed = () => {
 };
 
 export const likePhoto = (id, is_liked) => {
-	return (dispatch) => {
+
+	return(dispatch) => {
 
 		let method = '';
 		if(is_liked) {
@@ -96,5 +97,69 @@ export const likePhoto = (id, is_liked) => {
 		}
 
 		// alert("Requisicao: "+method+" ao id "+id)
-	}
+
+		AsyncStorage.getItem('jwt')
+			.then((data) => {
+				if(data != null && data != '') {
+
+					let endpoint = 'photos/'+id+'/like';
+
+					DevstagramAPI.req({
+						endpoint:endpoint,
+						method:method,
+						data:{jwt:data},
+						success:(json)=>{
+							if(json.logged === true) {
+
+								if(json.error != '') {
+									alert(json.error);
+
+									if(is_liked) {
+										dispatch({
+											type:'addLike',
+											payload:{
+												id:id
+											}
+										});
+									} else{
+										dispatch({
+											type:'removeLike',
+											payload:{
+												id:id
+											}
+										});
+									}
+								}
+
+							} else {
+								dispatch(logout());
+							}
+
+						},
+						error:(error)=>{
+							alert("Erro na requisição");
+							dispatch({
+								type:'changeFeedLoadingStatus',
+								payload:{
+									status: true
+								}
+							});								
+						}
+					});
+				} else {
+					dispatch(logout());
+				}
+			})
+			.catch(()=>{
+				dispacth({
+					type:'changeStatus',
+					payload:{
+						status:2
+					}
+				});
+			});
+	};
+
+		
+	
 }
