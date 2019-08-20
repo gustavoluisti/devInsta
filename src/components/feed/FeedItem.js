@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, StyleSheet, Text, Image } from 'react-native';
+import {View, StyleSheet, Text, Image, Dimensions } from 'react-native';
 
 export default class FeedItem extends Component {
 
@@ -14,7 +14,8 @@ export default class FeedItem extends Component {
         time = time[0]+':'+time[1];
 
         this.state = {
-            dateFormated:date+''+time
+            dateFormated:date+''+time,
+            screenWidth:Dimensions.get('window').width
         }
     }
 
@@ -34,14 +35,16 @@ export default class FeedItem extends Component {
                     </View>
                 </View>
                 <View style={styles.feedBody}>
-                    <Image source={{uri:this.props.data.url}} style={styles.feedImage} />
+                    <Image resizeMode="cover" source={{uri:this.props.data.url}} style={{width:this.state.screenWidth, height:this.state.screenWidth}} />
                 </View>
                 <View style={styles.feedFooter}>
                     <View style={styles.likeArea}>
-                        <Text>{this.props.data.like_count}</Text>
+                        <Image source={require('../../assets/like_off.png')} style={styles.footerIcon} />
+                        <Text style={styles.likeText}>{this.props.data.like_count}</Text>
                     </View>
                     <View style={styles.commentArea}>
-                        <Text>{this.props.data.comments.length}</Text>
+                        <Image source={require('../../assets/comments.png')} style={styles.footerIcon} />
+                        <Text style={styles.likeText}>{this.props.data.comments.length}</Text>
                     </View>
                 </View>
                 {this.props.data.comments.length > 0 &&
@@ -84,6 +87,7 @@ const styles = StyleSheet.create({
     userName:{
         width:150,
         height:25,
+        fontSize:14
     },
     dateArea:{
         flex:1,
@@ -99,27 +103,40 @@ const styles = StyleSheet.create({
     postDate:{
         height:20,
         marginRight:10,
+        fontSize:14,
     },
     feedBody:{
         flex: 1,
-    },
-    feedImage:{
-        width:'100%',
-        height:300,
+        backgroundColor:'#EEEEEE'
     },
     feedFooter:{
         height:60,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
     },
     likeArea:{
-        width:60,
+        flexDirection: 'row',
         height:60,
-        backgroundColor: '#CCCCCC',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft:20,
+        paddingRight:20
     },
     commentArea:{
-        width:60,
+        flexDirection: 'row',
         height:60,
-        backgroundColor: '#CCCCCC',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft:20,
+        paddingRight:20,
+    },
+    footerIcon:{
+        width:25,
+        height:25,
+        marginRight:10,
+    },
+    likeText:{
+        fontSize:18,
     },
     commentContainer:{
         padding:10,
