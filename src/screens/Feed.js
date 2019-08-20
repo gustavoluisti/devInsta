@@ -22,7 +22,7 @@ class Feed extends Component {
     }
 
     componentDidMount() {
-        this.props.getFeed();
+        this.props.getFeed(0);
     }
 
     componentDidUpdate() {
@@ -46,6 +46,10 @@ class Feed extends Component {
         this.props.likePhoto(id, is_liked);
     }
 
+    paginateFeed = () => {
+        this.props.getFeed(this.props.feed.length);
+    }
+
 
     render() {
         return (
@@ -67,6 +71,8 @@ class Feed extends Component {
                         renderItem={({ item }) => <FeedItem data={item} likeAction={this.likeAction} nav={this.props.navigation} />}
                         keyExtractor={(item) => item.id}
                         style={styles.feed}
+                        onEndReachedThreshold={0.5}
+                        onEndReached={()=> this.paginateFeed()}
                     />
                 }
 

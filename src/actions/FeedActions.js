@@ -2,15 +2,16 @@ import { AsyncStorage } from 'react-native';
 import DevstagramAPI from '../DevstagramAPI';
 import { logout } from  './AuthActions';
 
-export const getFeed = () => {
+export const getFeed = (offset) => {
 	return(dispatch) => {
-
-		dispatch({
-			type:'changeFeedLoadingStatus',
-			payload:{
-				status: true
-			}
-		});
+		if(offset == 0) {
+			dispatch({
+				type:'changeFeedLoadingStatus',
+				payload:{
+					status: true
+				}
+			});
+		}
 
 		AsyncStorage.getItem('jwt')
 			.then((data) => {
@@ -18,7 +19,7 @@ export const getFeed = () => {
 					DevstagramAPI.req({
 						endpoint:'users/feed',
 						method:'GET',
-						data:{jwt:data},
+						data:{jwt:data, offset:offset},
 						success:(json)=>{
 
 
