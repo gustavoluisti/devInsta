@@ -69,3 +69,17 @@ export const getFeed = () => {
 			});
 	};
 };
+
+export const likePhoto = (id, is_liked) => {
+	return (dispacth) => {
+
+		let method = '';
+		if(is_liked) {
+			method = 'DELETE';
+		} else {
+			method = 'POST';
+		}
+
+		alert("Requisicao: "+method+" ao id "+id)
+	}
+}

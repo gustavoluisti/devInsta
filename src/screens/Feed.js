@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { checkLogin } from '../actions/AuthActions'
-import { getFeed } from '../actions/FeedActions'
+import { getFeed, likePhoto } from '../actions/FeedActions'
 import { NavigationActions, StackActions } from 'react-navigation';
 import FeedItemFake from '../components/feed/FeedItemFake'
 import FeedItem from '../components/feed/FeedItem'
@@ -41,6 +41,10 @@ class Feed extends Component {
         }
     }
 
+    likeAction = (id, is_liked) => {
+        this.props.likePhoto(id, is_liked);
+    }
+
     // {(this.props.feedLoading == false && this.props.feed.length == 0) &&
     //     <View style={styles.feedZero}>
     //         <Text style={styles.feedZeroTitle}>Não há itens a serem mostrados :(</Text>
@@ -63,7 +67,7 @@ class Feed extends Component {
 
                 <FlatList
                     data={this.state.feedFake}
-                    renderItem={({ item }) => <FeedItem data={item} nav={this.props.navigation} />}
+                    renderItem={({ item }) => <FeedItem data={item} likeAction={this.likeAction} nav={this.props.navigation} />}
                     keyExtractor={(item) => item.id}
                     style={styles.feed}
                 />
@@ -100,5 +104,5 @@ const mapStateToProps = (state) => {
         feedLoading: state.feed.feedLoading
     }
 }
-const FeedScreen = connect(mapStateToProps, { checkLogin, getFeed })(Feed)
+const FeedScreen = connect(mapStateToProps, { checkLogin, getFeed, likePhoto })(Feed)
 export default FeedScreen;
