@@ -13,18 +13,11 @@ export default class FeedItem extends Component {
         let time = rawDate[1].split(':');
         time = time[0] + ':' + time[1];
 
-        let likeImage;
-        if(this.props.data.is_liked){
-            likeImage = require('../../assets/like_on.png');
-        } else {
-            likeImage = require('../../assets/like_off.png');
-        }
-
         this.state = {
             dateFormated: date + '' + time,
             screenWidth: Dimensions.get('window').width,
             photoClickCount: 0,
-            likeImage:likeImage
+            likeImage:null
         }
     }
 
@@ -69,6 +62,13 @@ export default class FeedItem extends Component {
     }
 
     render() {
+
+        let likeImage;
+        if(this.props.data.is_liked){
+            likeImage = require('../../assets/like_on.png');
+        } else {
+            likeImage = require('../../assets/like_off.png');
+        }
         return (
             <View style={styles.feedContainer}>
                 <View style={styles.feedHeader}>
@@ -96,7 +96,7 @@ export default class FeedItem extends Component {
                 <View style={styles.feedFooter}>
                     <TouchableHighlight underlayColor={null} onPress={this.directLikeClick} >
                         <View style={styles.likeArea} >
-                            <Image source={this.state.likeImage} style={styles.footerIcon} />
+                            <Image source={likeImage} style={styles.footerIcon} />
                             <Text style={styles.likeText}>{this.props.data.like_count}</Text>
                         </View>
                     </TouchableHighlight>

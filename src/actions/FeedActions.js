@@ -95,6 +95,6 @@ export const likePhoto = (id, is_liked) => {
 
 		}
 
-		alert("Requisicao: "+method+" ao id "+id)
+		// alert("Requisicao: "+method+" ao id "+id)
 	}
 }
