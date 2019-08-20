@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, StyleSheet, Text, Image, Dimensions } from 'react-native';
+import {View, StyleSheet, Text, Image, Dimensions, TouchableHighlight } from 'react-native';
 
 export default class FeedItem extends Component {
 
@@ -19,15 +19,24 @@ export default class FeedItem extends Component {
         }
     }
 
+    userClick = () => {
+        alert("clicou no usuario")
+    }
+
     render() {
         return (
             <View style={styles.feedContainer}>
                 <View style={styles.feedHeader}>
                     <View style={styles.avatar}>
-                        <Image source={{uri:this.props.data.avatar}} style={styles.avatarImg} />
+                        <TouchableHighlight onPress={this.userClick}>
+                            <Image source={{uri:this.props.data.avatar}} style={styles.avatarImg} />
+                        </TouchableHighlight>
+                        
                     </View>
                     <View style={styles.userName}>
-                        <Text>{this.props.data.name}</Text>
+                        <TouchableHighlight underlayColor={null} onPress={this.userClick}>
+                            <Text>{this.props.data.name}</Text>
+                        </TouchableHighlight>
                     </View>
                     <View style={styles.dateArea}>
                         <Image source={require('../../assets/clock.png')} style={styles.clockIcon} />
